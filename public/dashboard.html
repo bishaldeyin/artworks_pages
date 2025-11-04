@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — DK Art</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="logo">DK</div>
+      <h1>Admin Dashboard</h1>
+    </div>
+    <div>
+      <button id="logoutBtn" class="admin-link">Logout</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="upload-card">
+      <h3 style="margin:0 0 10px 0">Upload Artwork (max 5MB)</h3>
+      <form id="uploadForm">
+        <input class="input" name="title" placeholder="Title" required />
+        <textarea class="input" name="description" placeholder="Description" required></textarea>
+        <input class="input" type="file" name="image" accept="image/*" required />
+        <div style="margin-top:10px"><button class="button" type="submit">Upload</button></div>
+        <div id="uploadMsg" style="margin-top:8px;color:#ffd1d1"></div>
+      </form>
+    </div>
+
+    <h3 style="margin-top:18px">Your Uploads</h3>
+    <div id="gallery" class="gallery-grid"></div>
+  </div>
+
+  <script>
+    async function checkStatus() {
+      const res = await fetch('/api/admin/status');
+      if (!res.ok) { window.location.href = '/admin'; return; }
+      const j = await res.json();
+      if (!j.loggedIn) window.location.href = '/admin';
+    }
+
+    async function loadGallery() {
+      const r = await fetch('/api/artworks');
+      const j = await r.json();
+      if (!j.success) return;
+      const gallery = document.getElementById('gallery');
+      gallery.innerHTML = j.artworks.map(a => `
+        <div class="card" data-id="${a._id}">
+          <img src="/uploads/${a.filename}" alt="${a.title}" />
+          <div class="meta">
+            <div>
+              <h3>${escapeHTML(a.title)}</h3>
+              <p>${escapeHTML(a.description)}</p>
+            </div>
+            <div><button class="delete-btn" onclick="deleteArt('${a._id}')">Delete</button></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function deleteArt(id) {
+      if (!confirm('Delete this artwork?')) return;
+      const res = await fetch('/api/delete/' + id, { method:'POST' });
+      const j = await res.json();
+      if (j.success) loadGallery();
+      else alert('Delete failed');
+    }
+
+    document.getElementById('uploadForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const f = e.target;
+      const fd = new FormData(f);
+      const res = await fetch('/api/upload', { method:'POST', body: fd });
+      const j = await res.json();
+      const msg = document.getElementById('uploadMsg');
+      if (j.success) {
+        msg.innerText = 'Uploaded';
+        f.reset();
+        loadGallery();
+      } else msg.innerText = j.message || 'Upload failed';
+    };
+
+    document.getElementById('logoutBtn').onclick = async () => {
+      await fetch('/api/logout', { method:'POST' });
+      window.location.href = '/';
+    };
+
+    function escapeHTML(s){ return String(s || '').replace(/[&<>"']/g, (m)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    (async ()=>{ await checkStatus(); await loadGallery(); })();
+  </script>
+</body>
+</html>

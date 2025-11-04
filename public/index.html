@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DK ART AND DESIGN 🎨</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 25px 15px;
+      background: white;
+      color: #1877f2;
+      font-size: 1.8rem;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .gallery {
+      max-width: 600px;
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0 10px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.01);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .content {
+      padding: 10px 15px 5px;
+    }
+
+    .card h3 {
+      margin: 0;
+      color: #050505;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 0.95rem;
+      margin: 5px 0 10px;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .action-btn {
+      background: transparent;
+      border: none;
+      color: #1877f2;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .action-btn:hover {
+      color: #0d47a1;
+    }
+
+    .comments-section {
+      display: none;
+      background: #f7f8fa;
+      padding: 10px 15px;
+      border-top: 1px solid #eee;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .comment {
+      background: white;
+      border-radius: 12px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .comment strong {
+      color: #1877f2;
+      font-size: 0.9rem;
+    }
+
+    .comment p {
+      margin: 3px 0 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .comment-form {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .comment-form input {
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 8px 12px;
+      outline: none;
+      font-size: 0.9rem;
+    }
+
+    .comment-form button {
+      align-self: flex-end;
+      background: #1877f2;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 6px 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .comment-form button:hover {
+      background: #145dbf;
+    }
+  </style>
+</head>
+<body>
+  <header>DK ART AND DESIGN🎨</header>
+  <section class="gallery" id="gallery"></section>
+  <script src="script.js"></script>
+</body>
+</html>

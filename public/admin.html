@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Login — DK Art</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="auth-card">
+    <h2>Admin Login</h2>
+    <form id="loginForm">
+      <input class="input" name="username" placeholder="Username" required />
+      <input class="input" type="password" name="password" placeholder="Password" required />
+      <div style="margin-top:10px">
+        <button class="button" type="submit">Login</button>
+      </div>
+      <div id="loginMsg" style="color:#ffb3b3;margin-top:8px"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const fd = Object.fromEntries(new FormData(form));
+      const res = await fetch('/api/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(fd) });
+      if (res.ok) {
+        // go to dashboard
+        window.location.href = '/dashboard';
+      } else {
+        const j = await res.json();
+        document.getElementById('loginMsg').innerText = j.message || 'Invalid credentials';
+      }
+    };
+  </script>
+</body>
+</html>

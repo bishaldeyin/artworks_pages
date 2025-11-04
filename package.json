@@ -1,0 +1,16 @@
+{
+  "name": "dk-art-website",
+  "version": "1.0.0",
+  "description": "Artistic student gallery with admin",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongoose": "^8.8.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}
