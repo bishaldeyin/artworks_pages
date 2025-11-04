@@ -1,0 +1,44 @@
+# ----- System files -----
+.DS_Store
+Thumbs.db
+
+# ----- Python / Flask -----
+__pycache__/
+*.pyc
+instance/
+venv/
+*.db
+*.sqlite3
+
+# ----- Environment / Secrets -----
+.env
+.env.local
+config.json
+secrets.json
+
+# ----- Logs -----
+*.log
+
+# ----- IDE / Editor files -----
+.vscode/
+.idea/
+*.swp
+
+# ----- Uploads / Media -----
+uploads/
+media/
+static/uploads/
+static/media/
+
+# ----- Cache / Temporary -----
+.cache/
+*.tmp
+*.bak
+
+# ----- Node / Build (if you ever add frontend build tools) -----
+node_modules/
+dist/
+build/
+
+# ----- Misc -----
+*.pid
