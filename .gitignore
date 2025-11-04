@@ -1,44 +1,17 @@
-# ----- System files -----
-.DS_Store
-Thumbs.db
+# Dependency directories
+node_modules/
+uploads/
 
-# ----- Python / Flask -----
-__pycache__/
-*.pyc
-instance/
-venv/
-*.db
-*.sqlite3
-
-# ----- Environment / Secrets -----
+# Environment files
 .env
 .env.local
-config.json
-secrets.json
+.env.*.local
 
-# ----- Logs -----
-*.log
+# Logs and debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# ----- IDE / Editor files -----
-.vscode/
-.idea/
-*.swp
-
-# ----- Uploads / Media -----
-uploads/
-media/
-static/uploads/
-static/media/
-
-# ----- Cache / Temporary -----
-.cache/
-*.tmp
-*.bak
-
-# ----- Node / Build (if you ever add frontend build tools) -----
-node_modules/
-dist/
-build/
-
-# ----- Misc -----
-*.pid
+# OS files
+.DS_Store
+Thumbs.db
