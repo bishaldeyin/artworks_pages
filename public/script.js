@@ -12,6 +12,7 @@ async function loadGalleryPublic() {
         <p>${escapeHTML(a.description)}</p>
       </div>
       <div class="action-bar">
+        <button class="action-btn" onclick="likePost('${a._id}')">❤️ Like (${a.likes})</button>
         <button class="action-btn" onclick="toggleComments('${a._id}')">💬 Comments (${a.comments.length})</button>
       </div>
       <div class="comments-section" id="comments-${a._id}">
@@ -33,6 +34,12 @@ async function loadGalleryPublic() {
   `).join('');
 }
 
+async function likePost(id) {
+  const res = await fetch(`/api/like/${id}`, { method: 'POST' });
+  const j = await res.json();
+  if (j.success) loadGalleryPublic();
+}
+
 function toggleComments(id) {
   const section = document.getElementById(`comments-${id}`);
   section.style.display = section.style.display === 'block' ? 'none' : 'block';
@@ -49,18 +56,15 @@ async function submitComment(e, id) {
   const form = e.target;
   const fd = new FormData(form);
   const body = { email: fd.get('email'), text: fd.get('text') };
-
   const res = await fetch('/api/comment/' + id, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
-
   const j = await res.json();
   if (j.success) {
     form.reset();
     loadGalleryPublic();
-    document.getElementById(`comments-${id}`).style.display = 'block';
   } else {
     alert(j.message || 'Failed to post comment');
   }
